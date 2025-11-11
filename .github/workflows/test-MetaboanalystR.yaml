@@ -18,6 +18,8 @@ jobs:
       group: test-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RENV_CONFIG_PAK_ENABLED: "TRUE"   
+      RENV_CONFIG_VERBOSE: "TRUE"
     permissions:
       contents: write
     steps:
