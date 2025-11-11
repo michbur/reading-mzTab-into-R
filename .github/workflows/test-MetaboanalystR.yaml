@@ -34,7 +34,7 @@ jobs:
       - name: Install pak 
         shell: Rscript {0}
         run: |
-          install.packages(c("pak","BiocManager"), repos="https://cran.r-project.org")
+          install.packages("pak", repos="https://cran.r-project.org")
           
       - uses: r-lib/actions/setup-renv@v2
 
