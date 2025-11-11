@@ -29,6 +29,17 @@
     ]
   },
   "Packages": {
+    "MetaboAnalystR": {
+      "Package": "MetaboAnalystR",
+      "Version": "4.2.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "xia-lab",
+      "RemoteRepo": "MetaboAnalystR",
+      "RemoteRef": "master",
+      "RemoteSha": "326ba2835b64049e683a99a7ae23bb8d5d034854"
+    },
     "renv": {
       "Package": "renv",
       "Version": "1.1.2",
