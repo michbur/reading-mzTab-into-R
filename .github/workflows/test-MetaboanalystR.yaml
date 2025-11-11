@@ -11,7 +11,7 @@ name: test.yaml
 permissions: read-all
 
 jobs:
-  pkgdown:
+  test-MetaboanalystR:
     runs-on: ubuntu-latest
     # Only restrict concurrency for non-PR jobs
     concurrency:
