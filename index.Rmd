@@ -1,0 +1,56 @@
+---
+title: "Mztab import evaluation"
+output: 
+  html_document:
+    toc: true
+    toc_float: 
+      collapsed: true
+    toc_depth: 3
+    number_sections: true
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+resulting_class <- sapply(all_reads, class)
+
+all_results <- data.frame(file = basename(all_files), 
+                          result = ifelse(resulting_class == "list", "success", 
+                                          ifelse(resulting_class == "try-error", 
+                                                 "error", "something weird")))
+```
+
+# Evaluation summary
+
+```{r main-table}
+DT::datatable(
+  all_results,
+  filter = "top",          
+  options = list(
+    pageLength = 20,         
+    autoWidth = TRUE,         
+    searchHighlight = TRUE,  
+    dom = "Bfrtip",           
+    buttons = c("copy", "csv")
+  ),
+  extensions = "Buttons"
+)
+```
+
+# Errors
+
+```{r errors-sections, results='asis'}
+all_errors <- all_reads[resulting_class == "try-error"]
+all_error_filenames <- basename(all_files)[resulting_class == "try-error"]
+
+all_text <- sapply(1L:length(all_errors), function(ith_error) 
+  paste0("\n\n## ", 
+         all_error_filenames[ith_error], 
+         "\n\nError message:",
+         "\n\n<code>", all_errors[ith_error], "</code>")
+)
+
+cat(all_text, sep = "\n")
+```
