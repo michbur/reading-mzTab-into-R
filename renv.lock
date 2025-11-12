@@ -413,6 +413,12 @@
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
       "Repository": "https://packagemanager.posit.co/cran/2025-07-31"
     },
+    "DT": {
+      "Package": "DT",
+      "Version": "0.34.0",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
     "DelayedArray": {
       "Package": "DelayedArray",
       "Version": "0.32.0",

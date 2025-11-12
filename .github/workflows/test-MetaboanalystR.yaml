@@ -18,8 +18,6 @@ jobs:
       group: test-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RENV_CONFIG_PAK_ENABLED: "TRUE"   
-      RENV_CONFIG_VERBOSE: "TRUE"
     permissions:
       contents: write
     steps:
@@ -36,16 +34,7 @@ jobs:
         with:
           use-public-rspm: true
           
-      - name: Install pak 
-        shell: Rscript {0}
-        run: |
-          install.packages("pak", repos="https://cran.r-project.org")
-          
       - uses: r-lib/actions/setup-renv@v2
-
-      - name: Restore environment
-        run: renv::restore()
-        shell: Rscript {0}
 
       - name: Build site
         run: source("run-test.R")
