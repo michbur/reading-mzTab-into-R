@@ -7,9 +7,8 @@ output:
       collapsed: true
     toc_depth: 3
     number_sections: true
-date: "`r format(Sys.time(), '%d %B, %Y')`"
+date: "`r paste0('Evaluation date: ', format(Sys.time(), '%Y-%m-%d %H:%M:%S'))`"
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -17,9 +16,9 @@ knitr::opts_chunk$set(echo = FALSE)
 resulting_class <- sapply(all_reads, class)
 
 all_results <- data.frame(file = basename(all_files), 
-                          result = ifelse(resulting_class == "list", "success", 
-                                          ifelse(resulting_class == "try-error", 
-                                                 "error", "something weird")))
+                          MetaboAnalystR = as.factor(ifelse(resulting_class == "list", "success", 
+                                                            ifelse(resulting_class == "try-error", 
+                                                                   "error", "something weird"))))
 ```
 
 # Evaluation summary
@@ -36,7 +35,10 @@ DT::datatable(
     buttons = c("copy", "csv")
   ),
   extensions = "Buttons"
-)
+) |> 
+  DT::formatStyle("MetaboAnalystR", 
+                  backgroundColor = DT::styleEqual(levels = levels(all_results[["MetaboAnalystR"]]), 
+                                                   values = c("grey83", "#e9a3c9", "#a1d76a")))
 ```
 
 # Errors
@@ -54,3 +56,7 @@ all_text <- sapply(1L:length(all_errors), function(ith_error)
 
 cat(all_text, sep = "\n")
 ```
+
+# About 
+
+Source repository: https://github.com/michbur/reading-mzTab-into-R
