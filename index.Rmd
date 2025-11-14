@@ -38,7 +38,7 @@ DT::datatable(
 ) |> 
   DT::formatStyle("MetaboAnalystR", 
                   backgroundColor = DT::styleEqual(levels = levels(all_results[["MetaboAnalystR"]]), 
-                                                   values = c("grey83", "#e9a3c9", "#a1d76a")))
+                                                   values = c("#fc8d59", "grey83", "#91cf60")))
 ```
 
 # Errors
