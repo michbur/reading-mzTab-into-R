@@ -1,4 +1,8 @@
 renv::activate(profile = "rendering")
+if(!require("callr")) {
+  renv::restore()
+  require("callr")
+}
 
 source("test-Metaboanalyst.R")
 
@@ -7,7 +11,7 @@ all_files <- list.files("examples", full.names = TRUE, pattern = "mztab")
 all_test_functions <- ls()[grepl("^test_", ls())]
 
 all_imports <- lapply(all_test_functions, function(ith_test_fun) {
-  callr::r(get(ith_test_fun), args = list(all_files = all_files))
+  r(get(ith_test_fun), args = list(all_files = all_files))
 }) |>
   setNames(gsub("^test_", "", all_test_functions))
 
