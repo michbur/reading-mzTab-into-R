@@ -17,20 +17,20 @@ knitr::opts_chunk$set(echo = FALSE)
 # Evaluation summary
 
 ```{r main-table}
-DT::datatable(import_df,
-  filter = "top",          
-  options = list(
-    pageLength = 20,         
-    autoWidth = TRUE,         
-    searchHighlight = TRUE,  
-    dom = "Bfrtip",           
-    buttons = c("copy", "csv")
-  ),
-  extensions = "Buttons"
+DT::datatable(cbind(file = basename(all_files), import_df),
+              filter = "top",          
+              options = list(
+                pageLength = 20,         
+                autoWidth = TRUE,         
+                searchHighlight = TRUE,  
+                dom = "Bfrtip",           
+                buttons = c("copy", "csv")
+              ),
+              extensions = "Buttons"
 ) |> 
-  DT::formatStyle("MetaboanalystR", 
-                  backgroundColor = DT::styleEqual(levels = levels(import_df[["MetaboanalystR"]]), 
-                                                   values = c("#fc8d59", "grey83", "#91cf60")))
+  DT::formatStyle(1L:ncol(import_df) + 1, 
+                  backgroundColor = DT::styleEqual(levels = c("error", "something weird", "success"), 
+                                                   values = c("#fc8d59", "grey83", "#91cf60"))) 
 ```
 
 # Errors
@@ -41,17 +41,22 @@ all_text <- sapply(names(all_imports), function(ith_name) {
   all_reads <- all_imports[[ith_name]][["reads"]]
   resulting_class <- sapply(all_reads, class)
   all_errors <- all_reads[resulting_class == "try-error"]
-  all_error_filenames <- basename(all_files)[resulting_class == "try-error"]
   
-  c(paste0("\n\n## ", ith_name), sapply(1L:length(all_errors), function(ith_error) 
-    paste0("\n\n### ", 
-           all_error_filenames[ith_error], 
-           "\n\nError message:",
-           "\n\n<code>", all_errors[ith_error], "</code>")
-  ))
+  if(length(all_errors) > 0) {
+    all_error_filenames <- basename(all_files)[resulting_class == "try-error"]
+    
+    c(paste0("\n\n## ", ith_name), sapply(1L:length(all_errors), function(ith_error) 
+      paste0("\n\n### ", 
+             all_error_filenames[ith_error], 
+             "\n\nError message:",
+             "\n\n<code>", all_errors[ith_error], "</code>")
+    ))
+  } else {
+    ""
+  }
 })
 
-cat(all_text, sep = "\n")
+cat(unlist(all_text), sep = "\n")
 ```
 
 # About 
