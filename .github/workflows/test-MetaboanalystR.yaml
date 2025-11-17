@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
 
-      - name: Preprare environment
+      - name: Prepare environment
         run: source("prepare-environment.R")
         shell: Rscript {0}
 

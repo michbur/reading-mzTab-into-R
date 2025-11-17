@@ -1,5 +1,8 @@
 renv::activate(profile = "MetaboAnalystR")
-library("MetaboAnalystR")
+if(!require("MetaboAnalystR")) {
+  renv::restore()
+  require("MetaboAnalystR")
+}
 
 all_reads <- lapply(all_files, function(ith_file_name) {
   # there are many global assignments in metaboanalystR 
