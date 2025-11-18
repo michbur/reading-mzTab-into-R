@@ -21,7 +21,7 @@ test_MetaboanalystR <- function(all_files) {
   
   list(assessment = ifelse(resulting_class == "list", "success", 
                            ifelse(resulting_class == "try-error", 
-                                  "error", "something weird")),
+                                  "error", "silent failure")),
        reads = all_reads)
 }
 

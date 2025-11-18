@@ -17,7 +17,7 @@ all_imports <- lapply(all_test_functions, function(ith_test_fun) {
   setNames(gsub("^test_", "", all_test_functions))
 
 import_df <- lapply(names(all_imports), function(ith_name) {
-  factor(all_imports[[ith_name]][[1]], levels = c("error", "something weird", "success"))
+  factor(all_imports[[ith_name]][[1]], levels = c("error", "silent failure", "success"))
 }) |>
   do.call(cbind.data.frame, args = _) |>
   data.frame() |>

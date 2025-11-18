@@ -29,7 +29,7 @@ DT::datatable(cbind(file = basename(all_files), import_df),
               extensions = "Buttons"
 ) |> 
   DT::formatStyle(1L:ncol(import_df) + 1, 
-                  backgroundColor = DT::styleEqual(levels = c("error", "something weird", "success"), 
+                  backgroundColor = DT::styleEqual(levels = c("error", "silent failure", "success"), 
                                                    values = c("#fc8d59", "grey83", "#91cf60"))) 
 ```
 
