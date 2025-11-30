@@ -4,8 +4,9 @@ if(!require("callr")) {
   require("callr")
 }
 
-source("test-Metaboanalyst.R")
-source("test-rmzTabM.R")
+for(ith_file in list.files("test-scripts", full.names = TRUE, pattern = "test-")) {
+  source(ith_file)
+}
 
 all_files <- list.files("examples", full.names = TRUE, pattern = "mztab")
 
@@ -22,6 +23,13 @@ import_df <- lapply(names(all_imports), function(ith_name) {
   do.call(cbind.data.frame, args = _) |>
   data.frame() |>
   setNames(names(all_imports)) 
+
+
+jmztabm_commands <- paste0("$(brew --prefix)/opt/openjdk/bin/java -jar jmztabm-cli.jar -c ", all_files, " -l Info")
+
+jmztabm_res <- lapply(jmztabm_commands, function(ith_command) {
+  system(ith_command, intern = TRUE)
+})
 
 unlink("docs")
 rmarkdown::render("index.Rmd", output_dir = "docs")
