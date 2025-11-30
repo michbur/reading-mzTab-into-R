@@ -25,7 +25,7 @@ import_df <- lapply(names(all_imports), function(ith_name) {
   setNames(names(all_imports)) 
 
 
-jmztabm_commands <- paste0("$(brew --prefix)/opt/openjdk/bin/java -jar jmztabm-cli.jar -c ", all_files, " -l Info")
+jmztabm_commands <- paste0("java -jar jmztabm-cli.jar -c ", all_files, " -l Info")
 
 jmztabm_res <- lapply(jmztabm_commands, function(ith_command) {
   system(ith_command, intern = TRUE)
